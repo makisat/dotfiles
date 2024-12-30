@@ -1,0 +1,9 @@
+[submodule "emacs/.config/emacs"]
+	path = emacs/.config/emacs
+	url = https://github.com/makisat/emacs-config.git
+[submodule "nvim/.config/nvim"]
+	path = nvim/.config/nvim
+	url = https://github.com/makisat/makisat.nvim.git
+[submodule "kitty/.config/kitty"]
+	path = kitty/.config/kitty
+	url = https://github.com/makisat/kitty_config.git
