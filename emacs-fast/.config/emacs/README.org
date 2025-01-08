@@ -47,7 +47,7 @@
                   vterm-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-  (setq display-line-numbers-width-start t) ;; Stop the screen shifting
+  (setq-default display-line-numbers-width 3)
 
   (setq scroll-conservatively 10000)
   (setq scroll-margin 8)
@@ -71,9 +71,6 @@
 
   (setq package-enable-at-startup nil)
 
-#+end_src
-#+begin_src emacs-lisp
-
   (defvar bootstrap-version)
   (let ((bootstrap-file
          (expand-file-name
@@ -96,37 +93,44 @@
 ** Vertico
 #+begin_src emacs-lisp
 
-  (use-package vertico
-    :init (vertico-mode 1))
+    (use-package vertico
+      :init (vertico-mode 1)
+      :bind (:map vertico-map
+                  ("RET" . vertico-directory-enter)
+                  ("DEL" . vertico-directory-delete-char)
+                  ("M-DEL" . vertico-directory-delete-word)))
 
-  (use-package marginalia
-    :init (marginalia-mode 1))
+    (use-package marginalia
+      :init (marginalia-mode 1))
 
-  (use-package orderless
-    :config
-    ;; Set Orderless as the primary completion style
-    (setq completion-styles '(orderless basic)
-          completion-category-overrides '((file (styles basic partial-completion))))
+    (use-package orderless
+      :config
+      ;; Set Orderless as the primary completion style
+      (setq completion-styles '(orderless basic)
+            completion-category-overrides '((file (styles basic partial-completion))))
 
-    ;; Enable case-insensitive matching
-    (setq completion-ignore-case t
-          read-buffer-completion-ignore-case t
-          read-file-name-completion-ignore-case t)
+      ;; Enable case-insensitive matching
+      (setq completion-ignore-case t
+            read-buffer-completion-ignore-case t
+            read-file-name-completion-ignore-case t)
 
-    ;; Define matching styles for Orderless
-    (setq orderless-matching-styles '(orderless-flex orderless-literal orderless-regexp)))
+      ;; Define matching styles for Orderless
+      (setq orderless-matching-styles '(orderless-flex orderless-literal orderless-regexp)))
 
-  (use-package consult)
+    (use-package consult
+      :bind (("C-x b" . consult-buffer)
+             ("C-c c l" . consult-line)
+             ("C-c y" . consult-yank-from-kill-ring)))
 
-  (use-package corfu
-    :custom
-    (corfu-auto t)
-    :init
-    (global-corfu-mode 1)
-    (corfu-history-mode t))
+    (use-package corfu
+      :custom
+      (corfu-auto t)
+      :init
+      (global-corfu-mode 1)
+      (corfu-history-mode t))
 
-  (use-package savehist
-    :init (savehist-mode 1))
+    (use-package savehist
+      :init (savehist-mode 1))
 
 #+end_src
 ** Project
@@ -161,7 +165,8 @@
 ** Magit
 #+begin_src emacs-lisp
 
-  (use-package magit)
+    (use-package magit
+      :bind ("C-c g" . magit))
 
 #+end_src
 ** Smartparens
@@ -181,25 +186,43 @@
 
 #+end_src
 * LSP
+** LSP setup
+#+begin_src emacs-lisp
+  ;; (use-package lsp-mode
+  ;;   :init (setq lsp-keymap-prefix "C-c l")
+  ;;   :hook
+  ;;   ((typescript-ts-mode tsx-ts-mode c-ts-mode go-ts-mode) . 'lsp-deferred)
+  ;;   (lsp-mode . lsp-enable-which-key-integration)
+  ;;   :commands lsp)
+#+end_src
 ** Yasnippet
 #+begin_src emacs-lisp
 
   (use-package yasnippet
     :init (yas-global-mode 1)
-    :config (setq yas-snippet-dirs '("~/.config/emacs/snippets/")))
+    :config (setq yas-snippet-dirs '("~/.config/emacs/snippets/"))
+    :bind ("C-<tab>" . yas-expand))
 
 #+end_src
 ** Prog-mode
 #+begin_src emacs-lisp
 
-  (defun max/prog-mode-setup ()
+  (defun max/prog-mode-setup (x)
     "set lsp, indentation and whitespace mode"
     (interactive)
-    (eglot-ensure)
-    (setq tab-width 4)
-    (setq go-ts-mode-indent-offset 4)
+
+    (setq tab-width x)
     (setq indent-tabs-mode nil)
+
+    (setq go-ts-mode-indent-offset x)
+    (setq tsx-ts-mode-indent-offset x)
+    (setq typescript-ts-mode-indent-offset x)
+    (setq c-ts-mode-indent-offset x)
+
     (whitespace-mode))
+
+  (add-hook 'prog-mode-hook (lambda ()
+                              (whitespace-mode)))
 
 #+end_src
 ** Go
@@ -207,7 +230,7 @@
 
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 
-  (add-hook 'go-ts-mode-hook 'max/prog-mode-setup)
+  (add-hook 'go-ts-mode-hook (lambda () (max/prog-mode-setup 4)))
 
 #+end_src
 ** Typescript/tsx
@@ -220,11 +243,26 @@
                       "master" "tsx/src")))
 
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 
-  (add-hook 'tsx-ts-mode-hook 'max/prog-mode-setup)
+  (add-hook 'tsx-ts-mode-hook
+            (lambda () (max/prog-mode-setup 2)))
+  (add-hook 'typescript-ts-mode-hook
+            (lambda () (max/prog-mode-setup 2)))
 
 #+end_src
+** C
+#+begin_src emacs-lisp
 
+  (add-to-list 'auto-mode-alist '("\\.c\\'" . c-ts-mode))
+
+  (add-hook 'c-ts-mode-hook
+            (lambda ()
+              (setq tab-width 4)
+              (setq c-ts-mode-indent-offset 4)
+              (setq indent-tabs-mode nil)))
+
+#+end_src
 * Org mode
 ** Theme
 #+begin_src emacs-lisp
@@ -277,12 +315,14 @@
 ** Org-roam
 #+begin_src emacs-lisp
 
-  (use-package org-roam
-    :init
-    (setq org-roam-v2-ack t)
-    :custom
-    (org-roam-directory  "~/Nextcloud/RoamNotes")
-    :config
-    (org-roam-setup))
+      (use-package org-roam
+        :init
+        (setq org-roam-v2-ack t)
+        :custom
+        (org-roam-directory  "~/Nextcloud/RoamNotes")
+        :config
+        (org-roam-setup)
+        :bind (("C-c n f" . org-roam-node-find)
+               ("C-c n i" . org-roam-node-insert)))
 
 #+end_src
