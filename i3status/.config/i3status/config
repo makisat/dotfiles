@@ -1,0 +1,36 @@
+# i3status config file
+
+general {
+    colors = true
+    interval = 5
+}
+
+order += "volume master"
+order += "tztime local"
+
+# Show time
+# This uses the 'tztime' module to display the current local time
+tztime local {
+    format = "%m/%d %H:%M  "
+}
+
+# Show battery status
+# This uses the 'battery' module to display battery status and percentage
+battery 0 {
+    format = "%status %percentage %remaining"
+    path = "/sys/class/power_supply/BAT0/uevent"
+    format_down = "No battery"
+}
+
+# Show volume level
+# This uses 'volume' module to show the volume of 'Master' mixer
+volume master {
+    format = "Volume: %volume"
+    format_muted = "Volume: muted"
+    device = "default"
+    mixer = "Master"
+}
+
+# In this configuration, the workspaces will be displayed using the default bar,
+# while the battery, volume, and time are managed by i3status.
+# The systray will also be displayed in the bar.

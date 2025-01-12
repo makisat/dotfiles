@@ -1,0 +1,25 @@
+[font]
+normal = { family = "JetBrainsMono Nerd Font" }
+bold = { family = "JetBrainsMono Nerd Font" }
+italic = { family = "JetBrainsMono Nerd Font" }
+
+size = 12.0
+
+[terminal.shell]
+program = "fish"
+
+[window]
+startup_mode = "Maximized"
+decorations = "None"
+dimensions = { columns = 100, lines = 30 }
+dynamic_padding = true
+opacity = 0.9
+
+[scrolling]
+multiplier = 3
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [{ key = "y", mods = "Control|Shift", mode = "~Vi", action = "ToggleViMode" }]
