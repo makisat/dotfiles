@@ -246,6 +246,11 @@
 	      (setq indent-tabs-mode nil)))
 
 #+end_src
+** Zig
+#+begin_src emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-mode))
+  (use-package zig-mode)
+#+end_src
 ** C
 #+begin_src emacs-lisp
 
