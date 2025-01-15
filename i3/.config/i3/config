@@ -45,13 +45,13 @@ workspace $ws10 output $monitor_right
 #----- start ups ----- #
 
 # wallpaper
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/cat-orange.jpg
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/bulbs.jpg
 
 # picom
 exec --no-startup-id picom -b
 
 # ibus
-exec --no-startup-id fcitx5
+exec --no-startup-id ibus-daemon
 
 # nextcloud
 exec --no-startup-id nextcloud
@@ -76,7 +76,8 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id xset -dpms
 
 # polybar
-#exec --no-startup-id bash $HOME/.config/polybar/forest/launch.sh
+exec --no-startup-id polybar main
+exec --no-startup-id polybar sub
 
 # audio control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 10%+
@@ -242,31 +243,44 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    status_command i3status
-    tray_output primary
-    workspace_buttons yes
-} 
+# bar {
+#     status_command i3status
+#     tray_output HDMI-0
+#     workspace_buttons yes
+# }
 
 default_border pixel 3
 
 gaps inner 10
 gaps outer 5
+# i3 configuration: Arch Linux-themed colors
 
-# Focused window (green border)
-client.focused          #6B8E23 #6B8E23 #6B8E23 #6B8E23 #6B8E23
+# Colors
+set $bg-color          #1E1E2E
+set $bg-alt-color      #2E3440
+set $text-color        #D8DEE9
+set $primary-color     #81A1C1
+set $secondary-color   #5E81AC
+set $alert-color       #BF616A
+set $disabled-color    #4C566A
 
-# Unfocused window (gray-green border)
-client.unfocused        #708070 #708070 #708070 #708070 #708070
+# Window border colors
+client.focused          $primary-color $primary-color $text-color $primary-color
+client.focused_inactive $bg-alt-color $bg-alt-color $disabled-color $bg-alt-color
+client.unfocused        $bg-alt-color $bg-alt-color $disabled-color $bg-alt-color
+client.urgent           $alert-color $alert-color $text-color $alert-color
 
-# Urgent window (bright green border)
-client.urgent           #7FFF00 #7FFF00 #7FFF00 #7FFF00 #7FFF00
+# Bar colors
+# bar {
+#     status_command i3status
+#     colors {
+#         background $bg-color
+#         statusline $text-color
+#         separator  $disabled-color
 
-# Window with indicator (medium green border)
-client.focused_inactive #708070 #708070 #708070 #708070 #708070
-
-# Background window (darker green border)
-client.placeholder      #2E8B57 #2E8B57 #2E8B57 #2E8B57 #2E8B57
-
-# Border color when a window is marked
-client.background       #006400
+#         focused_workspace  $primary-color $primary-color $text-color
+#         active_workspace   $secondary-color $secondary-color $text-color
+#         inactive_workspace $bg-alt-color $bg-alt-color $disabled-color
+#         urgent_workspace   $alert-color $alert-color $text-color
+#     }
+# }
