@@ -56,16 +56,19 @@ exec --no-startup-id ibus-daemon
 # nextcloud
 exec --no-startup-id nextcloud
 
+# screenshot
+exec flameshot
+
 # emacs
 exec --no-startup-id emacs --daemon
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-#exec --no-startup-id dex --autostart --environment i3
+# exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -110,12 +113,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+q kill
 
 # power menu
-#bindsym $mod+x exec /home/makisat/.config/polybar/forest/scripts/powermenu.sh
+bindsym $mod+x exec rofi -show power-menu -modi power-menu:rofi-power-menu
 
 # rofi launcher
-#bindsym $mod+Shift+d exec /home/makisat/.config/polybar/forest/scripts/launcher.sh
-# screen shot
-#bindsym $mod+Shift+s exec /home/makisat/.config/i3/scripts/screenshot.sh
+bindsym $mod+Shift+d exec rofi -show drun
 
 # Scratchpads Apps
 exec --no-startup-id thunar

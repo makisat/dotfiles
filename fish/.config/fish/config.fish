@@ -15,7 +15,10 @@ if status is-interactive
     # --- path --- #
     # go
     fish_add_path /home/makisat/go/bin
-
+    # .local/bin
+    fish_add_path /home/makisat/.local/bin
+    # bun
+    fish_add_path /home/makisat/.bun/bin
 end
 
 function fish_greeting

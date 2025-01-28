@@ -26,6 +26,7 @@
 
 ;; Line numbers
 (global-display-line-numbers-mode t)
+
 (setq display-line-numbers-type 'relative)
 
 (dolist (mode '(org-mode-hook
@@ -52,7 +53,7 @@
               '(face spaces empty tabs newline trailing space-mark tab-mark newline-mark))
 
 ;; Change the font
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 130)
+(set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 150)
 
 ;; org-agenda
 (setq org-agenda-files '("~/Nextcloud/RoamNotes"))
@@ -75,6 +76,12 @@
                (display-buffer-same-window)))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+(add-to-list 'display-buffer-alist
+             '("^\\*Help\\*"
+               (display-buffer-same-window)))
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; straight
 (defvar bootstrap-version)
@@ -201,3 +208,29 @@
   (org-roam-setup)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)))
+
+(setq treesit-language-source-alist
+      '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
+        (python      . ("https://github.com/tree-sitter/tree-sitter-python"))
+        (javascript  . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+        (typescript  . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+        (tsx         . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+        (json        . ("https://github.com/tree-sitter/tree-sitter-json"))
+        (yaml        . ("https://github.com/ikatyang/tree-sitter-yaml"))
+        (html        . ("https://github.com/tree-sitter/tree-sitter-html"))
+        (css         . ("https://github.com/tree-sitter/tree-sitter-css"))))
+
+(setq major-mode-remap-alist
+      '((c-mode             . c-ts-mode)
+        (c++-mode           . c++-ts-mode)
+        (python-mode        . python-ts-mode)
+        (js-mode            . js-ts-mode)
+        (json-mode          . json-ts-mode)
+        (yaml-mode          . yaml-ts-mode)
+        (html-mode          . html-ts-mode)
+        (css-mode           . css-ts-mode)))
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
