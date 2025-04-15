@@ -1,3 +1,5 @@
+
+
 ;; Move custom set variables
 (setq custom-file "~/.config/emacs/custom.el")
 (load custom-file 'no-error 'no-message)
@@ -208,6 +210,18 @@
   (org-roam-setup)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)))
+
+(use-package gptel
+  :config
+  (gptel-make-anthropic "Claude"          ;Any name you want
+  :stream t                             ;Streaming responses
+  :key gptel-api-key)
+
+  ;; OPTIONAL configuration
+  (setq
+   gptel-model 'claude-3-7-sonnet-20250219
+   gptel-backend (gptel-make-anthropic "Claude"
+                   :stream t :key gptel-api-key)))
 
 (setq treesit-language-source-alist
       '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
