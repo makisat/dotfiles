@@ -53,7 +53,7 @@
               '(face spaces empty tabs newline trailing space-mark tab-mark newline-mark))
 
 ;; Change the font
-(set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 150)
+(set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height 150)
 
 ;; org-agenda
 (setq org-agenda-files '("~/Nextcloud/RoamNotes"))
@@ -209,8 +209,25 @@
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)))
 
+(use-package org-roam-ui
+  :straight
+    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+    :after org-roam
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+(use-package zig-mode)
+
 (setq treesit-language-source-alist
       '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
+        (zig         . ("https://github.com/maxxnino/tree-sitter-zig"))
         (python      . ("https://github.com/tree-sitter/tree-sitter-python"))
         (javascript  . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
         (typescript  . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
@@ -234,3 +251,4 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))

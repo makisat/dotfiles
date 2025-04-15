@@ -23,6 +23,6 @@ end
 
 function fish_greeting
     if test "$TERM" = "alacritty"
-	nerdfetch
+	    #nerdfetch
     end
 end
