@@ -59,6 +59,9 @@ exec --no-startup-id nextcloud
 # screenshot
 exec flameshot
 
+# notification
+exec --no-startup-id dunst
+
 # emacs
 exec --no-startup-id emacs --daemon
 
