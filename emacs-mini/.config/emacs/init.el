@@ -50,7 +50,7 @@
 
 ;; Whitespace style
 (add-hook 'prog-mode-hook (lambda ()
-                (whitespace-mode)))
+                            (whitespace-mode)))
 (setq-default whitespace-style
               '(face spaces empty tabs newline trailing space-mark tab-mark newline-mark))
 
@@ -214,31 +214,32 @@
 
 (use-package org-roam-ui
   :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  :after org-roam
+  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+  ;;         a hookable mode anymore, you're advised to pick something yourself
+  ;;         if you don't care about startup time, use
+  ;;  :hook (after-init . org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (use-package zig-mode)
 
 (use-package gptel
   :config
   (gptel-make-anthropic "Claude"          ;Any name you want
-  :stream t                             ;Streaming responses
-  :key gptel-api-key)
+    :stream t                             ;Streaming responses
+    :key gptel-api-key)
 
   ;; OPTIONAL configuration
   (setq
    gptel-model 'claude-3-7-sonnet-20250219
    gptel-backend (gptel-make-anthropic "Claude"
-                   :stream t :key gptel-api-key)))
+                   :stream t :key gptel-api-key)
+   gptel-default-mode 'org-mode))
 
 (setq treesit-language-source-alist
       '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
