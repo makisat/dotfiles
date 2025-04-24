@@ -117,6 +117,11 @@
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word)))
 
+
+(use-package marginalia ; useful info in minibuffer
+  :init
+  (marginalia-mode))
+
 (use-package savehist
   :init (savehist-mode 1))
 
@@ -125,8 +130,6 @@
          ("C-c c l" . consult-line)
          ("C-c y" . consult-yank-from-kill-ring)
          ("C-c r" . consult-ripgrep)))
-
-
 
 (use-package corfu
   :custom
@@ -141,6 +144,12 @@
   :init
   (global-corfu-mode 1)
   (corfu-history-mode t))
+
+(use-package orderless ; better completion
+  :init
+  (setq completion-ignore-case t)
+  :config
+  (setq completion-styles '(orderless basic)))
 
 (use-package project-x
   :straight (project-x :type git :host github :repo "karthink/project-x")
