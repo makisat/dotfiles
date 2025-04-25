@@ -221,6 +221,7 @@
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)
+  (setq org-roam-node-display-template "${title} ${tags}")
   :custom
   (org-roam-directory  "~/Nextcloud/RoamNotes")
   :config
@@ -236,10 +237,6 @@
   :straight
   (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :after org-roam
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
