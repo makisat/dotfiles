@@ -277,7 +277,14 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
-(setq treesit-language-source-alist
+(use-package multiple-cursors
+  :bind (("C-c m" . mc/edit-lines)
+         ("C->"   . mc/mark-next-like-this)
+         ("C-<"   . mc/mark-previous-like-this)
+         :map mc/keymap
+         ("<return>" . nil)))
+
+(setq treesit-language-source-
       '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
         (zig         . ("https://github.com/maxxnino/tree-sitter-zig"))
         (python      . ("https://github.com/tree-sitter/tree-sitter-python"))
