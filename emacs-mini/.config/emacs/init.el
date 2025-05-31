@@ -188,6 +188,8 @@
   (org-mode . visual-line-mode)
   (org-mode . org-indent-mode))
 
+(setq org-image-actual-width nil)
+
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
@@ -212,6 +214,10 @@
  '((emacs-lisp . t)
    (python . t)))
 
+(setq ispell-program-name "/usr/bin/hunspell")
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 (setq org-confirm-babel-evaluate nil)
 
 (use-package olivetti
@@ -230,7 +236,18 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n l" . org-roam-buffer-toggle)))
 
-(use-package org-roam-ui)
+(use-package move-text
+  :config
+  (move-text-default-bindings)
+  (defun indent-region-advice (&rest ignored)
+    (let ((deactivate deactivate-mark))
+      (if (region-active-p)
+          (indent-region (region-beginning) (region-end))
+        (indent-region (line-beginning-position) (line-end-position)))
+      (setq deactivate-mark deactivate)))
+
+  (advice-add 'move-text-up :after 'indent-region-advice)
+  (advice-add 'move-text-down :after 'indent-region-advice))
 
 
 (use-package org-roam-ui
@@ -256,6 +273,9 @@
    gptel-backend (gptel-make-anthropic "Claude"
                    :stream t :key gptel-api-key)
    gptel-default-mode 'org-mode))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 (setq treesit-language-source-alist
       '((bash        . ("https://github.com/tree-sitter/tree-sitter-bash"))
@@ -283,4 +303,4 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-mode))
