@@ -90,6 +90,8 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(define-key prog-mode-map (kbd "C-c p") 'compile)
+
 ;; straight
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -216,7 +218,7 @@
 
 (setq ispell-program-name "/usr/bin/hunspell")
 (add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -249,6 +251,28 @@
   (advice-add 'move-text-up :after 'indent-region-advice)
   (advice-add 'move-text-down :after 'indent-region-advice))
 
+(use-package elfeed
+  :init
+  (setq elfeed-feeds
+        '(;; Tech
+          "https://www.theverge.com/rss/index.xml" tech
+          "https://www.wired.com/feed/rss" tech
+          "https://techcrunch.com/feed/" tech
+          "http://feeds.arstechnica.com/arstechnica/index/" tech
+          "https://news.ycombinator.com/rss" tech
+          ;; Dev
+          "https://www.freecodecamp.org/news/rss/" dev
+          "https://www.smashingmagazine.com/feed/" dev
+          "https://css-tricks.com/feed/" dev
+          "https://dev.to/feed" dev
+          "https://www.sitepoint.com/feed/" dev
+          ;; MLB
+          "https://www.mlb.com/feeds/news/rss.xml" mlb
+          ;; World/American News
+          "https://rss.nytimes.com/services/xml/rss/nyt/US.xml" news
+          "https://rss.nytimes.com/services/xml/rss/nyt/World.xml" news
+          "http://feeds.reuters.com/Reuters/domesticNews" news
+          "http://feeds.reuters.com/Reuters/worldNews" news)))
 
 (use-package org-roam-ui
   :straight
@@ -260,7 +284,15 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+(use-package gdscript-mode
+    :straight (gdscript-mode
+               :type git
+               :host github
+               :repo "godotengine/emacs-gdscript-mode"))
+
 (use-package zig-mode)
+
+(use-package go-mode)
 
 (use-package gptel
   :config
@@ -311,3 +343,4 @@
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))

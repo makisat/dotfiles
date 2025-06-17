@@ -14,38 +14,38 @@ exec --no-startup-id xauth generate $DISPLAY . trusted
 mouse_warping none
 
 # ----- Monitor Settigns ----- #
-# exec --no-startup-id /home/makisat/.config/i3/scripts/monitor.sh
+exec --no-startup-id /home/makisat/.config/i3/scripts/monitor.sh
 
-# set $monitor_left "HDMI-0"
-# set $monitor_right "DP-4"
+set $monitor_left "HDMI-0"
+set $monitor_right "DP-4"
 
-#set $ws1 "1"
-#set $ws2 "2"
-#set $ws3 "3"
-#set $ws4 "4"
-#set $ws5 "5"
-#set $ws6 "6"
-#set $ws7 "7"
-#set $ws8 "8"
-#set $ws9 "9"
-#set $ws10 "10"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
-#assign workspace to monitor
-# sorkspace $ws1 output $monitor_left
-# sorkspace $ws2 output $monitor_left
-# sorkspace $ws3 output $monitor_left
-# sorkspace $ws4 output $monitor_left
-# sorkspace $ws5 output $monitor_left
-# sorkspace $ws6 output $monitor_right
-# sorkspace $ws7 output $monitor_right
-# sorkspace $ws8 output $monitor_right
-# sorkspace $ws9 output $monitor_right
-# sorkspace $ws10 output $monitor_right
+# assign workspace to monitor
+workspace $ws1 output $monitor_left
+workspace $ws2 output $monitor_left
+workspace $ws3 output $monitor_left
+workspace $ws4 output $monitor_left
+workspace $ws5 output $monitor_left
+workspace $ws6 output $monitor_right
+workspace $ws7 output $monitor_right
+workspace $ws8 output $monitor_right
+workspace $ws9 output $monitor_right
+workspace $ws10 output $monitor_right
 
 #----- start ups ----- #
 
 # wallpaper
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/room.jpg
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/bulbs.jpg
 
 # picom
 exec --no-startup-id picom -b
@@ -82,7 +82,7 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id xset -dpms
 
 # polybar
-# exec --no-startup-id polybar main
+exec --no-startup-id polybar main
 exec --no-startup-id polybar sub
 
 # audio control
@@ -107,6 +107,7 @@ bindsym $mod+t exec alacritty
 bindsym $mod+e exec emacsclient -c -a "emacs"
 
 # start a browser
+# bindsym $mod+w exec flatpak run app.zen_browser.zen
 bindsym $mod+w exec brave
 
 # start dmenu (a program launcher)
@@ -121,6 +122,9 @@ bindsym $mod+x exec rofi -show power-menu -modi power-menu:rofi-power-menu
 # rofi launcher
 bindsym $mod+Shift+d exec rofi -show drun
 
+# flameshot
+bindsym $mod+s exec flameshot gui
+
 # Scratchpads Apps
 exec --no-startup-id thunar
 for_window [class="Thunar"] move scratchpad
@@ -133,6 +137,11 @@ bindsym $mod+f [class="Thunar"] scratchpad show
 
 bindsym $mod+m [class="pavucontrol"] scratchpad show
 
+
+#----- floating apps -----#
+for_window [class="Godot"] floating enable
+
+for_window [class="com-atlauncher-App"] floating enable
 
 #----- window management -----#
 
@@ -149,7 +158,7 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+s split h
+#bindsym $mod+s split h
 
 # split in vertical orientation
 bindsym $mod+v split v
