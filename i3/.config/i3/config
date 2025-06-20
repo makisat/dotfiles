@@ -1,0 +1,187 @@
+set $mod Mod4
+
+font pango:monospace 8
+
+# --- Settings --- #
+focus_follows_mouse no
+mouse_warping none
+
+# --- Start Ups --- #
+exec --no-startup-id $HOME/.config/i3/scripts/autotiling
+
+exec --no-startup-id $HOME/.config/i3/scripts/monitor
+
+exec --no-startup-id polybar main
+exec --no-startup-id polybar sub
+
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/debian.png
+
+exec --no-startup-id picom
+
+exec --no-startup-id emacs --daemon
+
+exec --no-startup-id ibus-daemon
+
+exec --no-startup-id flatpak run com.nextcloud.desktopclient.nextcloud
+
+# --- Application Shortcuts --- #
+bindsym $mod+t exec alacritty
+
+bindsym $mod+w exec flatpak run com.brave.Browser
+
+bindsym $mod+e exec emacsclient -c -a "emacs"
+
+bindsym $mod+Shift+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id dmenu_run
+
+bindsym $mod+s exec --no-startup-id flameshot gui
+
+# --- Volume & Media Control --- #
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+
+# --- Workspace Placement --- #
+
+set $MONITOR_LEFT HDMI-0
+set $MONITOR_RIGHT DP-4
+
+workspace "6" output $MONITOR_RIGHT
+workspace "7" output $MONITOR_RIGHT
+workspace "8" output $MONITOR_RIGHT
+workspace "9" output $MONITOR_RIGHT
+workspace "10" output $MONITOR_RIGHT
+
+workspace "1" output $MONITOR_LEFT
+workspace "2" output $MONITOR_LEFT
+workspace "3" output $MONITOR_LEFT
+workspace "4" output $MONITOR_LEFT
+workspace "5" output $MONITOR_LEFT
+
+# --- Floating Apps --- #
+for_window [class="com-atlauncher-App"] floating enable
+
+for_window [class="org.gnome.Nautilus"] floating enable
+
+for_window [class="org.gnome.Software"] floating enable
+
+for_window [class="Nordvpn-gui"] floating enable
+
+for_window [class="Godot"] floating enable
+
+# --- Scratchpads --- #
+exec --no-startup-id nautilus
+for_window [class="org.gnome.Nautilus"] move scratchpad
+bindsym $mod+f [class="org.gnome.Nautilus"] scratchpad show
+
+exec --no-startup-id nordvpn-gui
+for_window [class="Nordvpn-gui"] move scratchpad
+bindsym $mod+v [class="Nordvpn-gui"] scratchpad show
+
+# --- Key Binds --- #
+# meta key to move floating windows
+floating_modifier Mod1
+
+# drag windows
+tiling_drag modifier titlebar
+
+# kill focused window
+bindsym $mod+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# toggle floatnig
+bindsym $mod+Shift+f floating toggle
+
+# definie workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# --- Looks --- #
+
+default_border pixel 3
+
+gaps inner 10
+gaps outer 5
+
+set $bg-color          #1E1E2E
+set $bg-alt-color      #2E3440
+set $text-color        #D8DEE9
+set $primary-color     #81A1C1
+set $secondary-color   #5E81AC
+set $alert-color       #BF616A
+set $disabled-color    #4C566A
+
+# Window border colors
+client.focused          $primary-color $primary-color $text-color $primary-color
+client.focused_inactive $bg-alt-color $bg-alt-color $disabled-color $bg-alt-color
+client.unfocused        $bg-alt-color $bg-alt-color $disabled-color $bg-alt-color
+client.urgent           $alert-color $alert-color $text-color $alert-color
+
+# bar {
+#     status_command i3status
+# }

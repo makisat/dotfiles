@@ -1,0 +1,2 @@
+xrandr --output HDMI-0 --auto --mode 1920x1080 --rate 100 --pos 0x0
+xrandr --output DP-4 --auto --mode 1920x1080 --rate 144 --right-of HDMI-0
