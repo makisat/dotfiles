@@ -125,8 +125,12 @@
   (corfu-preview-current 'insert)
   (corfu-preselect-first nil)
   :init
-  (global-corfu-mode 1)
-  (corfu-history-mode t))
+  ;; (global-corfu-mode 1)
+  (corfu-history-mode t)
+  :hook (prog-mode . corfu-mode))
+
+(use-package cape :ensure
+  :bind ("M-p" . cape-prefix-map))
 
 ;; -- Miscellaneous --- ;;
 (use-package vterm :ensure t
@@ -197,25 +201,6 @@
   :init (doom-modeline-mode 1))
 
 ;; font
-(use-package ligature :ensure t
-  :init
-  (defconst my/jetbrains-ligatures
-    '("->" "<-" "-->" "<--" "=>" "<="
-      "==" "!=" "/=" "~=" "www" "&&" "||"
-      "/**" "/*" "*/" "///" "{-" "-}"
-      "++" "+++" "**" "***" "?:" "f_i" "f_l"
-      "::" ":::" ".." "..." ".?" "#{" "}#"
-      "#(" ")#" "#[" "]#" "#<" ">#" "#?"
-      "|>" "<|" "|-" "-|" "|=" "=|" "[|" "|]"
-      "||-" "-||" "||=" "=||" "<>" "</" "/>"
-      ":=" "<<<" ">>>" "<<=" ">>=" ".."
-      "=/=" "<-<" "<<-" "<-<" "->>" ">->"))
-  :config
-  (ligature-set-ligatures 'prog-mode my/jetbrains-ligatures)
-  (ligature-set-ligatures 'org-mode my/jetbrains-ligatures)
-  :hook ((prog-mode . ligature-mode)
-	 (org-mode . ligature-mode)))
-
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 140)
 
 (add-hook 'prog-mode-hook #'whitespace-mode)
@@ -274,3 +259,4 @@
   :config (setq yas-snippet-dirs '("~/.config/emacs/snippets/"))
   :bind ("C-<tab>" . yas-expand))
 
+(use-package zig-mode :ensure t)
