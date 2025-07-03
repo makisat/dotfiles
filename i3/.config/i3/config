@@ -27,7 +27,9 @@ exec --no-startup-id flatpak run com.nextcloud.desktopclient.nextcloud
 # --- Application Shortcuts --- #
 bindsym $mod+t exec alacritty
 
-bindsym $mod+w exec flatpak run com.brave.Browser
+bindsym $mod+w exec qutebrowser
+
+# bindsym $mod+w exec flatpak run com.brave.Browser
 
 bindsym $mod+e exec emacsclient -c -a "emacs"
 
@@ -78,6 +80,10 @@ bindsym $mod+f [class="org.gnome.Nautilus"] scratchpad show
 exec --no-startup-id nordvpn-gui
 for_window [class="Nordvpn-gui"] move scratchpad
 bindsym $mod+v [class="Nordvpn-gui"] scratchpad show
+
+exec --no-startup-id flatpak run net.ankiweb.Anki
+for_window [class="Anki"] move scratchpad
+bindsym $mod+a [class="Anki"] scratchpad show
 
 # --- Key Binds --- #
 # meta key to move floating windows

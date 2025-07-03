@@ -209,7 +209,12 @@
 (use-package org :ensure t
   :hook
   (org-mode . visual-line-mode)
-  (org-mode . org-indent-mode))
+  (org-mode . org-indent-mode)
+  (org-agenda-mode . olivetti-mode)
+  :bind (:map org-mode-map
+	 ("C-c l" . org-toggle-link-display)))
+
+(use-package olivetti :ensure t)
 
 (setq ispell-program-name "/usr/bin/hunspell")
 (add-hook 'org-mode-hook 'flyspell-mode)
@@ -251,12 +256,31 @@
 
 ;; --- Programming --- ;;
 (global-set-key (kbd "C-c p") 'compile)
+(global-set-key (kbd "C-c P") 'project-compile)
+(eval-after-load 'dired
+  '(define-key dired-mode-map (kbd "C-w") 'wdired-change-to-wdired-mode))
 
 (add-hook 'prog-mode-hook #'eglot-ensure)
+(eval-after-load 'eglot
+  '(add-to-list 'eglot-stay-out-of 'yasnippet))
+
+(define-key prog-mode-map (kbd "C-c l d") 'eglot-find-declaration)
+(define-key prog-mode-map (kbd "C-c l i") 'eglot-find-implementation)
+
+;; (use-package command-log-mode :ensure t
+;;   :config
+;;   (clm/open-command-log-buffer)
+;;   (global-command-log-mode))
+
+;; (use-package smartparens :ensure t
+;;   :hook (prog-mode . smartparens-mode))
 
 (use-package yasnippet :ensure t
   :init (yas-global-mode 1)
   :config (setq yas-snippet-dirs '("~/.config/emacs/snippets/"))
   :bind ("C-<tab>" . yas-expand))
 
-(use-package zig-mode :ensure t)
+(use-package zig-mode :ensure t
+  :init (setq zig-format-on-save nil))
+
+(use-package gdscript-mode :ensure t)
