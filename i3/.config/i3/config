@@ -14,18 +14,22 @@ exec --no-startup-id $HOME/.config/i3/scripts/monitor
 exec --no-startup-id polybar main
 exec --no-startup-id polybar sub
 
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/debian.png
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/mono_girl.jpg
+
+# disable screen goes blank
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
 
 exec --no-startup-id picom
 
 exec --no-startup-id emacs --daemon
 
-exec --no-startup-id ibus-daemon
+exec --no-startup-id ibus-daemon -rxRd
 
-exec --no-startup-id flatpak run com.nextcloud.desktopclient.nextcloud
+exec --no-startup-id nextcloud
 
 # --- Application Shortcuts --- #
-bindsym $mod+t exec alacritty
+bindsym $mod+t exec ghostty
 
 bindsym $mod+w exec qutebrowser
 
