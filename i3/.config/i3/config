@@ -14,7 +14,7 @@ exec --no-startup-id $HOME/.config/i3/scripts/monitor
 exec --no-startup-id polybar main
 exec --no-startup-id polybar sub
 
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/mono_girl.jpg
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/glasses_girl.jpg
 
 # disable screen goes blank
 exec --no-startup-id xset s off

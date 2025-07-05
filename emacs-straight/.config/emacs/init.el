@@ -23,7 +23,7 @@
 (set-fringe-mode 10)
 
 ;; Font & visuals
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 140)
+(set-face-attribute 'default nil :font "HackGen Console NF" :height 140)
 ;(add-hook 'prog-mode-hook #'whitespace-mode)
 
 ;; Line numbers
@@ -44,7 +44,7 @@
 (setq scroll-margin 8)
 
 ;; transparent background
-(add-to-list 'default-frame-alist '(alpha . 95))
+(add-to-list 'default-frame-alist '(alpha . 90))
 
 ;; --- Miscellaneous Settings --- ;;
 (setq org-image-actual-width nil)
