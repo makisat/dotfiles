@@ -117,7 +117,7 @@
 (use-package vterm
   :bind ("C-c t" . vterm)
   :init
-  (setq vterm-shell "/bin/bash")
+  (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t))
 
 (use-package move-text
@@ -171,7 +171,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
 
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-monokai-pro t)
 
   (doom-themes-org-config))
 
@@ -237,6 +237,8 @@
 (eval-after-load 'eglot
   '(add-to-list 'eglot-stay-out-of 'yasnippet))
 
+(setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+
 (define-key prog-mode-map (kbd "C-c l d") 'eglot-find-declaration)
 (define-key prog-mode-map (kbd "C-c l i") 'eglot-find-implementation)
 
@@ -247,3 +249,9 @@
 
 (use-package zig-mode
   :init (setq zig-format-on-save nil))
+
+(use-package gdscript-mode
+    :straight (gdscript-mode
+               :type git
+               :host github
+               :repo "godotengine/emacs-gdscript-mode"))
