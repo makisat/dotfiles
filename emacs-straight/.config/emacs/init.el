@@ -171,7 +171,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
 
-  (load-theme 'doom-monokai-pro t)
+  (load-theme 'doom-tomorrow-night t)
 
   (doom-themes-org-config))
 
@@ -184,6 +184,7 @@
   (org-mode . visual-line-mode)
   (org-mode . org-indent-mode)
   (org-agenda-mode . olivetti-mode)
+  (org-mode . olivetti-mode)
   :bind (:map org-mode-map
 	 ("C-c l" . org-toggle-link-display)))
 
@@ -242,6 +243,10 @@
 (define-key prog-mode-map (kbd "C-c l d") 'eglot-find-declaration)
 (define-key prog-mode-map (kbd "C-c l i") 'eglot-find-implementation)
 
+(add-to-list 'auto-mode-alist '("\\.c\\'" . c-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+
 (use-package yasnippet
   :init (yas-global-mode 1)
   :config (setq yas-snippet-dirs '("~/.config/emacs/snippets/"))
@@ -255,3 +260,10 @@
                :type git
                :host github
                :repo "godotengine/emacs-gdscript-mode"))
+
+(add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
+
+(use-package markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))

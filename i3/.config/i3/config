@@ -14,7 +14,7 @@ exec --no-startup-id $HOME/.config/i3/scripts/monitor
 exec --no-startup-id polybar main
 exec --no-startup-id polybar sub
 
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/orange_girl.jpg
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/ancient.jpg
 
 # disable screen goes blank
 exec --no-startup-id xset s off
@@ -32,6 +32,7 @@ exec --no-startup-id nextcloud
 bindsym $mod+t exec ghostty
 
 bindsym $mod+w exec qutebrowser
+bindsym $mod++Shift+w exec flatpak run org.qutebrowser.qutebrowser
 
 # bindsym $mod+w exec flatpak run com.brave.Browser
 
@@ -79,13 +80,18 @@ for_window [class="Godot"] floating enable
 
 for_window [class="Anki"] floating enable
 
+for_window [class="steam"] floating enable
+
+for_window [class="vlc"] floating enable
+
 # --- Scratchpads --- #
-exec --no-startup-id nautilus
-for_window [class="org.gnome.Nautilus"] move scratchpad
-bindsym $mod+f [class="org.gnome.Nautilus"] scratchpad show
+# exec --no-startup-id nautilus
+# for_window [class="org.gnome.Nautilus"] move scratchpad
+# bindsym $mod+f [class="org.gnome.Nautilus"] scratchpad show
+bindsym $mod+f exec --no-startup-id nautilus
 
 exec --no-startup-id nordvpn-gui
-for_window [class="Nordvpn-gui"] move scratchpad
+# for_window [class="Nordvpn-gui"] move scratchpad
 bindsym $mod+v [class="Nordvpn-gui"] scratchpad show
 
 # --- Key Binds --- #
