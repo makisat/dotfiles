@@ -129,6 +129,49 @@
   (corfu-history-mode t)
   :hook (prog-mode . corfu-mode))
 
+(use-package cape :ensure t
+  :bind ("M-p" . cape-prefix-map))
+
+(use-package orderless :ensure t
+  :init
+  (setq completion-ignore-case t)
+  :config
+  (setq completion-styles '(orderless basic)))
+
+(use-package vterm :ensure t
+  :bind ("C-c t" . vterm)
+  :init
+  (setq vterm-shell "/bin/bash")
+  (setq vterm-kill-buffer-on-exit t))
+
+(use-package move-text :ensure t
+  :config
+  (move-text-default-bindings)
+  (defun indent-region-advice (&rest ignored)
+    (let ((deactivate deactivate-mark))
+      (if (region-active-p)
+          (indent-region (region-beginning) (region-end))
+        (indent-region (line-beginning-position) (line-end-position)))
+      (setq deactivate-mark deactivate)))
+
+  (advice-add 'move-text-up :after 'indent-region-advice)
+  (advice-add 'move-text-down :after 'indent-region-advice))
+
+(use-package multiple-cursors :ensure t
+  :bind (("C-c m" . mc/mark-pop)
+         ("C->"   . mc/mark-next-like-this)
+         ("C-<"   . mc/mark-previous-like-this)
+	 ("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         :map mc/keymap
+         ("<return>" . nil)))
+
+(use-package orderless :ensure t
+  :init
+  (setq completion-ignore-case t)
+  :config
+  (setq completion-styles '(orderless basic)))
+
+
 (use-package projectile :ensure t
   :init
   (projectile-mode t)
