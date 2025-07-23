@@ -165,13 +165,6 @@
          :map mc/keymap
          ("<return>" . nil)))
 
-(use-package orderless :ensure t
-  :init
-  (setq completion-ignore-case t)
-  :config
-  (setq completion-styles '(orderless basic)))
-
-
 (use-package projectile :ensure t
   :init
   (projectile-mode t)
