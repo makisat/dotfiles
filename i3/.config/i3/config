@@ -14,7 +14,7 @@ exec --no-startup-id $HOME/.config/i3/scripts/monitor
 exec --no-startup-id polybar main
 exec --no-startup-id polybar sub
 
-exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/ancient.jpg
+exec --no-startup-id feh --bg-scale $HOME/Nextcloud/Photos/wallpapers/rengoku.png
 
 # disable screen goes blank
 exec --no-startup-id xset s off
@@ -90,7 +90,7 @@ for_window [class="vlc"] floating enable
 # bindsym $mod+f [class="org.gnome.Nautilus"] scratchpad show
 bindsym $mod+f exec --no-startup-id nautilus
 
-exec --no-startup-id nordvpn-gui
+# exec --no-startup-id nordvpn-gui
 # for_window [class="Nordvpn-gui"] move scratchpad
 bindsym $mod+v [class="Nordvpn-gui"] scratchpad show
 
@@ -106,6 +106,7 @@ bindsym $mod+q kill
 
 # change focus
 bindsym $mod+h focus left
+bindsym $mod+Tab focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
@@ -118,6 +119,15 @@ bindsym $mod+Shift+l move right
 
 # toggle floatnig
 bindsym $mod+Shift+f floating toggle
+
+# tab
+bindsym $mod+Shift+t layout tabbed
+
+# stack
+bindsym $mod+Shift+s layout stacking
+
+# default
+bindsym $mod+Shift+a layout toggle split
 
 # definie workspace names
 set $ws1 "1"

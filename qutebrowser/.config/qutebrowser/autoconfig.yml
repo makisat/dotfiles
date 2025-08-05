@@ -6,16 +6,12 @@
 
 config_version: 2
 settings:
-  bindings.commands:
-    global:
-      normal:
-        j: scroll-px 0 300
-        k: scroll-px 0 -300
   colors.webpage.darkmode.enabled:
     global: false
   content.blocking.enabled:
     global: true
   content.javascript.clipboard:
+    https://duckduckgo.com: access-paste
     https://gemini.google.com: access-paste
     https://github.com: access-paste
     https://nextjs.org: access-paste

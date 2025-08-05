@@ -702,6 +702,7 @@ c.completion.height = '20%'
 ##   - history
 ##   - filesystem
 # c.completion.open_categories = ['searchengines', 'quickmarks', 'bookmarks', 'history', 'filesystem']
+c.completion.open_categories = ['bookmarks']
 
 ## Move on to the next part when there's only one possible completion
 ## left.

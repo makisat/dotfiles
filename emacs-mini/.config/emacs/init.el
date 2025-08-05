@@ -24,7 +24,7 @@
 
 ;; Theme
 (set-face-attribute 'default nil :font "HackGen Console NF" :height 140)
-(load-theme 'wombat)
+(load-theme 'modus-vivendi-tinted)
 
 ;; Line numbers
 (global-display-line-numbers-mode t)
@@ -200,6 +200,8 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n l" . org-roam-buffer-toggle)))
 
+(use-package org-roam-ui :ensure t)
+
 ;; org-agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
 
@@ -215,6 +217,7 @@
 ;; --- Programming --- ;;
 (global-set-key (kbd "C-c p") 'compile)
 (global-set-key (kbd "C-c P") 'project-compile)
+(global-set-key (kbd "C-.") 'duplicate-line)
 
 (use-package yasnippet :ensure t
   :init (yas-global-mode 1)
@@ -224,8 +227,13 @@
 (use-package zig-mode :ensure t
   :init (setq zig-format-on-save nil))
 
+(use-package haskell-mode :ensure t)
+
 (use-package markdown-mode :ensure t)
 
+(use-package cmake-mode :ensure t)
+
+Auxiliary/cmake-mode.el
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
