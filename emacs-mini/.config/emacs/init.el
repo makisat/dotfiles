@@ -24,7 +24,7 @@
 
 ;; Theme
 (set-face-attribute 'default nil :font "HackGen Console NF" :height 140)
-(load-theme 'modus-vivendi-tinted)
+;; (load-theme 'wombat)
 
 ;; Line numbers
 (global-display-line-numbers-mode t)
@@ -186,7 +186,27 @@
 (use-package mozc :ensure t
   :config (setq default-input-method "japanese-mozc"))
 
+(use-package catppuccin-theme :ensure
+  :config (load-theme 'catppuccin))
+
+(use-package olivetti :ensure t
+  :hook ((org-mode . olivetti-mode)
+	 (org-agenda-mode . olivetti-mode)))
+
 (use-package org :ensure t)
+
+(add-hook 'org-mode-hook #'visual-line-mode)
+(setq-default org-startup-indented t
+              org-pretty-entities t
+              org-use-sub-superscripts "{}"
+              org-hide-emphasis-markers t
+              org-startup-with-inline-images t
+              org-image-actual-width '(300))
+(global-set-key (kbd "C-c l") 'org-toggle-link-display)
+
+(use-package org-fragtog :ensure t
+  :after org
+  :hook (org-mode . org-fragtog-mode))
 
 (use-package org-roam :ensure t
   :init
@@ -214,10 +234,30 @@
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-agenda-skip-timestamp-if-deadline-is-shown t)
 
+(use-package all-the-icons :ensure t
+  :if (display-graphic-p))
+
+(setq org-agenda-prefix-format
+      '((agenda . "\t%s")
+       (todo . "%i %t")
+       (tags . " %i %-12:c")
+       (search . " %i %-12:c")))
+
+(use-package treemacs :ensure)
+
 ;; --- Programming --- ;;
-(global-set-key (kbd "C-c p") 'compile)
+(global-set-key (kbd "C-c C-p") 'compile)
 (global-set-key (kbd "C-c P") 'project-compile)
 (global-set-key (kbd "C-.") 'duplicate-line)
+
+(setq eglot-ignored-server-capabilities
+      '(:inlayHintProvider))
+
+(eval-after-load 'eglot
+  '(add-to-list 'eglot-stay-out-of 'yasnippet))
+
+(add-hook 'prog-mode-hook (lambda ()
+			    (eglot-ensure)))
 
 (use-package yasnippet :ensure t
   :init (yas-global-mode 1)
@@ -233,7 +273,13 @@
 
 (use-package cmake-mode :ensure t)
 
-Auxiliary/cmake-mode.el
+;; Ocaml support
+(use-package tuareg :ensure t
+  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+
+(add-to-list 'load-path "/home/makisat/.opam/default/share/emacs/site-lisp")
+(require 'ocp-indent)
+
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
